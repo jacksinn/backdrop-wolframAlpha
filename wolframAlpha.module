@@ -1,0 +1,104 @@
+<?php
+// $Id$
+
+/**
+* Implements hook_help().
+*/
+function wolframAlpha_help($path, $arg) {
+	//creating a help hook
+	$output = "";
+	switch ($path) {
+		case "admin/help#wolframAlpha":
+			$output = "<p>" . t("Choose search box sizes to enable.") . "</p>";
+			break;
+	}
+	return $output;
+}
+
+/**
+* Implements hook_menu().
+*/
+
+function wolframAlpha_menu() {
+	$items = array();
+	$items['admin/build/wolframAlpha'] = array(
+		'title' => "wolframAlpha settings",
+		'description' => "Choose search box sizes.",
+		'page callback' => 'drupal_get_form',
+		'page arguments' => array('wolframAlpha_admin'),
+		'access arguments' => array('access administration pages'),
+		'type' => MENU_NORMAL_ITEM,
+	);
+
+	return $items;
+}
+
+/**
+* Implements hook_form().
+*/
+function wolframAlpha_form() {
+	$form = array();
+
+	$form['wolframAlpha_size_small'] = array(
+		'#title' => t("Enable Small wolframAlpha Block"),
+		'#type' => 'checkbox',
+		'#default_value' => variable_get('wolframAlpha_size_small', 1),
+	);
+
+	$form['wolframAlpha_size_medium'] = array(
+		'#title' => t("Enable Medium wolframAlpha Block"),
+		'#type' => 'checkbox',
+		'#default_value' => variable_get('wolframAlpha_size_medium', 1),
+	);
+
+	$form['wolframAlpha_size_large'] = array(
+		'#title' => t("Enable Large wolframAlpha Block"),
+		'#type' => 'checkbox',
+		'#default_value' => variable_get('wolframAlpha_size_large', 1),
+	);
+
+	return system_settings_form($form);
+}
+
+/**
+* Implements hook_block().
+*/
+
+function wolframAlpha_block($op = 'list', $delta = 0) {
+
+	$path = drupal_get_path('module', 'wolframAlpha');
+	$small = variable_get('wolframAlpha_size_small', 1);
+	$medium = variable_get('wolframAlpha_size_medium', 1);
+	$large = variable_get('wolframAlpha_size_large', 1);
+
+  $block = array();
+  switch ($op) {
+    case 'list':
+      if ($small == 1) { $block[0]['info'] = t('wolframAlpha-search-small');}
+      if ($medium == 1) { $block[1]['info'] = t('wolframAlpha-search-medium');}
+			if ($large == 1) { $block[2]['info'] = t('wolframAlpha-search-large');}
+      return $block;
+    case 'view':
+      switch ($delta) {
+				case 0:
+   		  		if ($small == 1) {
+						$block_content = '<div id="wolframAlpha-small"><script id="WolframAlphaScriptSmall" src="'.$path.'/js/wa-small.js" type="text/javascript"></script></div>';
+						$block['content'] = $block_content;
+					}
+          break;
+				case 1:
+					if ($medium == 1) {
+						$block_content = '<div id="wolframAlpha-medium"><script id="WolframAlphaScriptMedium" src="'.$path.'/js/wa-medium.js" type="text/javascript"></script></div>';
+						$block['content'] = $block_content;
+					}
+          break;
+				case 2:
+ 			    if ($large == 1) {
+						$block_content = '<div id="wolframAlpha-large"><script id="WolframAlphaScriptLarge" src="'.$path.'/js/wa-large.js" type="text/javascript"></script></div>';
+						$block['content'] = $block_content;
+					}
+          break;
+      }
+      return $block;
+  }
+}

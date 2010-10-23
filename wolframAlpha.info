@@ -1,0 +1,7 @@
+; $Id$
+name = wolframAlpha
+description = "Provides wolframAlpha block displays in three sizes."
+core = 6.x
+package = "Scientific Search"
+version = "6.x-1.0"
+
