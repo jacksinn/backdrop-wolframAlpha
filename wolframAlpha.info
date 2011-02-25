@@ -1,4 +1,3 @@
-; $Id$
 name = wolframAlpha
 description = "Provides wolframAlpha block displays in three sizes."
 core = 6.x
