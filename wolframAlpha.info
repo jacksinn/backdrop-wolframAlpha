@@ -1,6 +1,6 @@
-name = wolframAlpha
-description = "Provides wolframAlpha block displays in three sizes."
-core = 6.x
-package = "Scientific Search"
-version = "6.x-1.0"
+name = Wolfram Alpha
+description = "Provides wolframAlpha block displays in multiple sizes."
+backdrop = 1.x
+package = Search
+type = module
 

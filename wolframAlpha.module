@@ -8,96 +8,99 @@ function wolframAlpha_help($path, $arg) {
 	$output = "";
 	switch ($path) {
 		case "admin/help#wolframAlpha":
-			$output = "<p>" . t("Choose search box sizes to enable.") . "</p>";
+			$output = "<p>" . t("Place module generated WolframAlpha search blocks via blocks page (or preferred method)") . "</p>";
 			break;
 	}
 	return $output;
 }
 
 /**
-* Implements hook_menu().
-*/
+ * Implements hook_block_info().
+ * @return mixed
+ */
+function wolframAlpha_block_info(){
+  $blocks['wolframAlpha_size_small'] = array(
+    'info' => t('WolframAlpha Small Block'), //The name that will appear in the block list.
+    'cache' => DRUPAL_CACHE_PER_ROLE, //Default
+  );
 
-function wolframAlpha_menu() {
-	$items = array();
-	$items['admin/build/wolframAlpha'] = array(
-		'title' => "wolframAlpha settings",
-		'description' => "Choose search box sizes.",
-		'page callback' => 'drupal_get_form',
-		'page arguments' => array('wolframAlpha_admin'),
-		'access arguments' => array('access administration pages'),
-		'type' => MENU_NORMAL_ITEM,
-	);
+  $blocks['wolframAlpha_size_medium'] = array(
+    'info' => t('WolframAlpha Medium Block'), //The name that will appear in the block list.
+    'cache' => DRUPAL_CACHE_PER_ROLE, //Default
+  );
 
-	return $items;
+  $blocks['wolframAlpha_size_large'] = array(
+    'info' => t('WolframAlpha Large Block'), //The name that will appear in the block list.
+    'cache' => DRUPAL_CACHE_PER_ROLE, //Default
+  );
+
+  $blocks['wolframAlpha_size_annotated'] = array(
+    'info' => t('WolframAlpha Annotated Block'), //The name that will appear in the block list.
+    'cache' => DRUPAL_CACHE_PER_ROLE, //Default
+  );
+
+  return $blocks;
 }
 
 /**
-* Implements hook_form().
-*/
-function wolframAlpha_form() {
-	$form = array();
-
-	$form['wolframAlpha_size_small'] = array(
-		'#title' => t("Enable Small wolframAlpha Block"),
-		'#type' => 'checkbox',
-		'#default_value' => variable_get('wolframAlpha_size_small', 1),
-	);
-
-	$form['wolframAlpha_size_medium'] = array(
-		'#title' => t("Enable Medium wolframAlpha Block"),
-		'#type' => 'checkbox',
-		'#default_value' => variable_get('wolframAlpha_size_medium', 1),
-	);
-
-	$form['wolframAlpha_size_large'] = array(
-		'#title' => t("Enable Large wolframAlpha Block"),
-		'#type' => 'checkbox',
-		'#default_value' => variable_get('wolframAlpha_size_large', 1),
-	);
-
-	return system_settings_form($form);
-}
-
-/**
-* Implements hook_block().
-*/
-
-function wolframAlpha_block($op = 'list', $delta = 0) {
-
-	$path = drupal_get_path('module', 'wolframAlpha');
-	$small = variable_get('wolframAlpha_size_small', 1);
-	$medium = variable_get('wolframAlpha_size_medium', 1);
-	$large = variable_get('wolframAlpha_size_large', 1);
-
-  $block = array();
-  switch ($op) {
-    case 'list':
-      if ($small == 1) { $block[0]['info'] = t('wolframAlpha-search-small');}
-      if ($medium == 1) { $block[1]['info'] = t('wolframAlpha-search-medium');}
-			if ($large == 1) { $block[2]['info'] = t('wolframAlpha-search-large');}
+ * Implements hook_block_view().
+ * @param string $delta
+ * @return mixed
+ */
+function wolframAlpha_block_view($delta = '') {
+  switch($delta){
+    case 'wolframAlpha_size_small':
+      if(user_access('access content')){
+        $block['content'] = _wolframAlpha_contents("small");
+      }
       return $block;
-    case 'view':
-      switch ($delta) {
-				case 0:
-   		  		if ($small == 1) {
-						$block_content = '<div id="wolframAlpha-small"><script id="WolframAlphaScriptSmall" src="'.$path.'/js/wa-small.js" type="text/javascript"></script></div>';
-						$block['content'] = $block_content;
-					}
-          break;
-				case 1:
-					if ($medium == 1) {
-						$block_content = '<div id="wolframAlpha-medium"><script id="WolframAlphaScriptMedium" src="'.$path.'/js/wa-medium.js" type="text/javascript"></script></div>';
-						$block['content'] = $block_content;
-					}
-          break;
-				case 2:
- 			    if ($large == 1) {
-						$block_content = '<div id="wolframAlpha-large"><script id="WolframAlphaScriptLarge" src="'.$path.'/js/wa-large.js" type="text/javascript"></script></div>';
-						$block['content'] = $block_content;
-					}
-          break;
+
+    case 'wolframAlpha_size_medium':
+      if(user_access('access content')){
+        $block['content'] = _wolframAlpha_contents("medium");
+      }
+      return $block;
+
+    case 'wolframAlpha_size_large':
+      if(user_access('access content')){
+        $block['content'] = _wolframAlpha_contents("large");
+      }
+      return $block;
+
+    case 'wolframAlpha_size_annotated':
+      if(user_access('access content')){
+        $block['content'] = _wolframAlpha_contents("annotated");
       }
       return $block;
   }
+
+}
+
+/*
+ * CUSTOM, NON-HOOK PRIVATE FUNCTIONS
+ */
+/**
+ * @param $size
+ * @return string
+ */
+function _wolframAlpha_contents($size){
+  $js_code = 'YOU MUST CHOOSE A SIZE';
+  switch($size){
+    case "small":
+      $js_code = '<script id="WolframAlphaScript" src="http://www.wolframalpha.com/input/embed/?type=small" type="text/javascript"></script>';
+      break;
+
+    case "medium":
+      $js_code = '<script id="WolframAlphaScript" src="http://www.wolframalpha.com/input/embed/?type=medium" type="text/javascript"></script>';
+      break;
+
+    case "large":
+      $js_code = '<script id="WolframAlphaScript" src="http://www.wolframalpha.com/input/embed/?type=large" type="text/javascript"></script>';
+      break;
+
+    case "annotated":
+      $js_code = '<script id="WolframAlphaScript" src="http://www.wolframalpha.com/input/embed/?type=largeannot" type="text/javascript"></script>';
+      break;
+  }
+  return $js_code;
 }
