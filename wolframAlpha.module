@@ -21,22 +21,22 @@ function wolframAlpha_help($path, $arg) {
 function wolframAlpha_block_info(){
   $blocks['wolframAlpha_size_small'] = array(
     'info' => t('WolframAlpha Small Block'), //The name that will appear in the block list.
-    'cache' => DRUPAL_CACHE_PER_ROLE, //Default
+    'cache' => BACKDROP_CACHE_PER_ROLE, //Default
   );
 
   $blocks['wolframAlpha_size_medium'] = array(
     'info' => t('WolframAlpha Medium Block'), //The name that will appear in the block list.
-    'cache' => DRUPAL_CACHE_PER_ROLE, //Default
+    'cache' => BACKDROP_CACHE_PER_ROLE, //Default
   );
 
   $blocks['wolframAlpha_size_large'] = array(
     'info' => t('WolframAlpha Large Block'), //The name that will appear in the block list.
-    'cache' => DRUPAL_CACHE_PER_ROLE, //Default
+    'cache' => BACKDROP_CACHE_PER_ROLE, //Default
   );
 
   $blocks['wolframAlpha_size_annotated'] = array(
     'info' => t('WolframAlpha Annotated Block'), //The name that will appear in the block list.
-    'cache' => DRUPAL_CACHE_PER_ROLE, //Default
+    'cache' => BACKDROP_CACHE_PER_ROLE, //Default
   );
 
   return $blocks;
