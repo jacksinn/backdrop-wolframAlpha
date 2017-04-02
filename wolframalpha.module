@@ -87,19 +87,19 @@ function _wolframalpha_contents($size){
   $js_code = 'YOU MUST CHOOSE A SIZE';
   switch($size){
     case "small":
-      $js_code = '<script id="wolframalphaScript" src="http://www.wolframalpha.com/input/embed/?type=small" type="text/javascript"></script>';
+      $js_code = '<script id="WolframAlphaScript" src="http://www.wolframalpha.com/input/embed/?type=small" type="text/javascript"></script>';
       break;
 
     case "medium":
-      $js_code = '<script id="wolframalphaScript" src="http://www.wolframalpha.com/input/embed/?type=medium" type="text/javascript"></script>';
+      $js_code = '<script id="WolframAlphaScript" src="http://www.wolframalpha.com/input/embed/?type=medium" type="text/javascript"></script>';
       break;
 
     case "large":
-      $js_code = '<script id="wolframalphaScript" src="http://www.wolframalpha.com/input/embed/?type=large" type="text/javascript"></script>';
+      $js_code = '<script id="WolframAlphaScript" src="http://www.wolframalpha.com/input/embed/?type=large" type="text/javascript"></script>';
       break;
 
     case "annotated":
-      $js_code = '<script id="wolframalphaScript" src="http://www.wolframalpha.com/input/embed/?type=largeannot" type="text/javascript"></script>';
+      $js_code = '<script id="WolframAlphaScript" src="http://www.wolframalpha.com/input/embed/?type=largeannot" type="text/javascript"></script>';
       break;
   }
   return $js_code;
