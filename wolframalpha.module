@@ -3,12 +3,12 @@
 /**
 * Implements hook_help().
 */
-function wolframAlpha_help($path, $arg) {
+function wolframalpha_help($path, $arg) {
 	//creating a help hook
 	$output = "";
 	switch ($path) {
-		case "admin/help#wolframAlpha":
-			$output = "<p>" . t("Place module generated WolframAlpha search blocks via blocks page (or preferred method)") . "</p>";
+		case "admin/help#wolframalpha":
+			$output = "<p>" . t("Place module generated Wolfram Alpha Search blocks via blocks page (or preferred method)") . "</p>";
 			break;
 	}
 	return $output;
@@ -18,24 +18,24 @@ function wolframAlpha_help($path, $arg) {
  * Implements hook_block_info().
  * @return mixed
  */
-function wolframAlpha_block_info(){
-  $blocks['wolframAlpha_size_small'] = array(
-    'info' => t('WolframAlpha Small Block'), //The name that will appear in the block list.
+function wolframalpha_block_info(){
+  $blocks['wolframalpha_size_small'] = array(
+    'info' => t('Wolfram Alpha Search Small Block'), //The name that will appear in the block list.
     'cache' => BACKDROP_CACHE_PER_ROLE, //Default
   );
 
-  $blocks['wolframAlpha_size_medium'] = array(
-    'info' => t('WolframAlpha Medium Block'), //The name that will appear in the block list.
+  $blocks['wolframalpha_size_medium'] = array(
+    'info' => t('Wolfram Alpha Search Medium Block'), //The name that will appear in the block list.
     'cache' => BACKDROP_CACHE_PER_ROLE, //Default
   );
 
-  $blocks['wolframAlpha_size_large'] = array(
-    'info' => t('WolframAlpha Large Block'), //The name that will appear in the block list.
+  $blocks['wolframalpha_size_large'] = array(
+    'info' => t('Wolfram Alpha Search Large Block'), //The name that will appear in the block list.
     'cache' => BACKDROP_CACHE_PER_ROLE, //Default
   );
 
-  $blocks['wolframAlpha_size_annotated'] = array(
-    'info' => t('WolframAlpha Annotated Block'), //The name that will appear in the block list.
+  $blocks['wolframalpha_size_annotated'] = array(
+    'info' => t('Wolfram Alpha Search Annotated Block'), //The name that will appear in the block list.
     'cache' => BACKDROP_CACHE_PER_ROLE, //Default
   );
 
@@ -47,29 +47,29 @@ function wolframAlpha_block_info(){
  * @param string $delta
  * @return mixed
  */
-function wolframAlpha_block_view($delta = '') {
+function wolframalpha_block_view($delta = '') {
   switch($delta){
-    case 'wolframAlpha_size_small':
+    case 'wolframalpha_size_small':
       if(user_access('access content')){
-        $block['content'] = _wolframAlpha_contents("small");
+        $block['content'] = _wolframalpha_contents("small");
       }
       return $block;
 
-    case 'wolframAlpha_size_medium':
+    case 'wolframalpha_size_medium':
       if(user_access('access content')){
-        $block['content'] = _wolframAlpha_contents("medium");
+        $block['content'] = _wolframalpha_contents("medium");
       }
       return $block;
 
-    case 'wolframAlpha_size_large':
+    case 'wolframalpha_size_large':
       if(user_access('access content')){
-        $block['content'] = _wolframAlpha_contents("large");
+        $block['content'] = _wolframalpha_contents("large");
       }
       return $block;
 
-    case 'wolframAlpha_size_annotated':
+    case 'wolframalpha_size_annotated':
       if(user_access('access content')){
-        $block['content'] = _wolframAlpha_contents("annotated");
+        $block['content'] = _wolframalpha_contents("annotated");
       }
       return $block;
   }
@@ -83,23 +83,23 @@ function wolframAlpha_block_view($delta = '') {
  * @param $size
  * @return string
  */
-function _wolframAlpha_contents($size){
+function _wolframalpha_contents($size){
   $js_code = 'YOU MUST CHOOSE A SIZE';
   switch($size){
     case "small":
-      $js_code = '<script id="WolframAlphaScript" src="http://www.wolframalpha.com/input/embed/?type=small" type="text/javascript"></script>';
+      $js_code = '<script id="wolframalphaScript" src="http://www.wolframalpha.com/input/embed/?type=small" type="text/javascript"></script>';
       break;
 
     case "medium":
-      $js_code = '<script id="WolframAlphaScript" src="http://www.wolframalpha.com/input/embed/?type=medium" type="text/javascript"></script>';
+      $js_code = '<script id="wolframalphaScript" src="http://www.wolframalpha.com/input/embed/?type=medium" type="text/javascript"></script>';
       break;
 
     case "large":
-      $js_code = '<script id="WolframAlphaScript" src="http://www.wolframalpha.com/input/embed/?type=large" type="text/javascript"></script>';
+      $js_code = '<script id="wolframalphaScript" src="http://www.wolframalpha.com/input/embed/?type=large" type="text/javascript"></script>';
       break;
 
     case "annotated":
-      $js_code = '<script id="WolframAlphaScript" src="http://www.wolframalpha.com/input/embed/?type=largeannot" type="text/javascript"></script>';
+      $js_code = '<script id="wolframalphaScript" src="http://www.wolframalpha.com/input/embed/?type=largeannot" type="text/javascript"></script>';
       break;
   }
   return $js_code;

@@ -1,5 +1,5 @@
-name = Wolfram Alpha
-description = "Provides wolframAlpha block displays in multiple sizes."
+name = Wolfram Alpha Search
+description = "Provides Wolfram Alpha Search block displays in multiple sizes."
 backdrop = 1.x
 package = Search
 type = module

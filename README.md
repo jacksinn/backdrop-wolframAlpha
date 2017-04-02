@@ -1,6 +1,6 @@
-Wolfram Alpha
+Wolfram Alpha Search
 ======================
-wolframAlpha is a simple module used to generate embedded WolframAlpha search blocks which may then be accessed and placed via the blocks page (or preferred method)
+Wolfram Alpha Search is a simple module used to generate embedded WolframAlpha search blocks which may then be accessed and placed via the blocks page (or preferred method)
 
 
 Installation
@@ -24,6 +24,8 @@ Current Maintainers
 -------------------
 
 - Steven Jackson (https://github.com/jacksinn/)
+- Phu Nguyen (https://github.com/phubear/)
+- Rooted Logics (https://github.com/rootedlogics/)
 
 Credits
 -------
